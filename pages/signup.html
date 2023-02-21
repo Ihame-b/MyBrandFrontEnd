@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Animated SignUp Form | CodingNepal</title>
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+
+    <div class="center">
+
+      <div>
+        <a href="/index.html"> <input type="submit" value="Home" /></a>
+      </div>
+
+      <h1 style="color: black;">SignUp</h1>
+      <form method="post">
+
+        <div class="txt_field">
+          <input id="username" type="text" />
+          <span></span>
+          <label>Username</label>
+        </div>
+
+         <div class="txt_field">
+          <input id="email" type="email" />
+          <span></span>
+          <label>email</label>
+        </div>
+
+        <div class="txt_field">
+          <input id="password" type="password" />
+          <span></span>
+          <label>Password</label>
+        </div>
+
+        <div class="pass">Show Password?</div>
+        <div>
+          <!-- <input type="submit" value="Create" class="submit"> -->
+          <input type="submit" name="" value="Create" class="submit">
+
+        </div>
+
+        <div class="signup_link">have account ligin? <a href="/pages/login.html">login</a></div>
+      </form>
+    </div>
+
+    <script>
+      const submit = document.querySelector('.submit')
+      const username = document.querySelector('#username')
+      const email = document.querySelector('#email')
+      const password = document.querySelector('#password')
+
+      submit.addEventListener('click', (e) => {
+          e.preventDefault()
+
+          const signupData = {
+              name: username.value,
+              email: email.value,
+              password: password.value,
+            }
+            console.log(signupData)
+
+            const newData = {
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': "application/json"
+
+                },
+                body: JSON.stringify(signupData)
+            }
+
+            console.log(newData)
+            fetch("http://localhost:4000/u/user/", newData)
+                .then(async(n) => {
+                    const res = await n.json()
+                    console.log(res)
+                    if (res) {
+                        alert('IHAME Account created successfully!, You can now Login ');
+                        location.reload();
+                        window.location.replace("login.html");
+
+                    } else {
+                        alert('IHAME Account not created!')
+                    }
+
+                })
+        })
+    </script>
+          
+  </body>
+</html>
